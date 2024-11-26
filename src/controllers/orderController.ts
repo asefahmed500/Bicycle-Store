@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
-import Product from '../models/product'; // Correct import for Product model
+import Product from '../models/product';
 import Order from '../models/order';
-
-
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -40,16 +38,16 @@ export const createOrder = async (req: Request, res: Response) => {
       success: true,
       data: order,
     });
-  } catch (error: unknown) {  // Declare error as 'unknown'
-    if (error instanceof Error) {  // Check if error is an instance of Error
-      console.error(error.message);  // Log the error message
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
       res.status(400).json({
         message: 'Failed to create order',
         success: false,
-        error: error.message,  // Safely access error message
+        error: error.message,
       });
     } else {
-      console.error(error);  // In case the error is not of type 'Error'
+      console.error(error);
       res.status(400).json({
         message: 'Failed to create order',
         success: false,
@@ -69,11 +67,19 @@ export const getAllOrders = async (req: Request, res: Response) => {
       data: orders,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Failed to retrieve orders',
-      success: false,
-      error,
-    });
+    if (error instanceof Error) {
+      res.status(500).json({
+        message: 'Failed to retrieve orders',
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        message: 'Failed to retrieve orders',
+        success: false,
+        error: 'An unknown error occurred',
+      });
+    }
   }
 };
 
@@ -93,11 +99,19 @@ export const getOrderById = async (req: Request, res: Response) => {
       data: order,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Failed to retrieve order',
-      success: false,
-      error,
-    });
+    if (error instanceof Error) {
+      res.status(500).json({
+        message: 'Failed to retrieve order',
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        message: 'Failed to retrieve order',
+        success: false,
+        error: 'An unknown error occurred',
+      });
+    }
   }
 };
 
@@ -120,11 +134,19 @@ export const updateOrder = async (req: Request, res: Response) => {
       data: order,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Failed to update order',
-      success: false,
-      error,
-    });
+    if (error instanceof Error) {
+      res.status(500).json({
+        message: 'Failed to update order',
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        message: 'Failed to update order',
+        success: false,
+        error: 'An unknown error occurred',
+      });
+    }
   }
 };
 
@@ -143,10 +165,18 @@ export const deleteOrder = async (req: Request, res: Response) => {
       success: true,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Failed to delete order',
-      success: false,
-      error,
-    });
+    if (error instanceof Error) {
+      res.status(500).json({
+        message: 'Failed to delete order',
+        success: false,
+        error: error.message,
+      });
+    } else {
+      res.status(500).json({
+        message: 'Failed to delete order',
+        success: false,
+        error: 'An unknown error occurred',
+      });
+    }
   }
 };

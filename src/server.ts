@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+
 import { setupMiddleware, errorHandler, routeNotFoundHandler } from './middleware/middleware';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
@@ -7,6 +7,7 @@ import connectDB from './config/db';
 // Import the connectDB function
 
 import dotenv from 'dotenv';
+import userRoutes from './routes/userRoutes';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 // Routes should be defined before the route not found handler
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 // 404 Handler (for undefined routes) should be at the bottom
 app.use(routeNotFoundHandler);

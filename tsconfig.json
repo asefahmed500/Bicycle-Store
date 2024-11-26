@@ -101,7 +101,9 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "src"
+    "src/**/*.ts", // Include all .ts files
+    "src/types/**/*.d.ts",
+    "src/express/types/custom.d.ts" // Include the custom type declaration
   ], // which files to compile
   "exclude": [
     "node_modules",
